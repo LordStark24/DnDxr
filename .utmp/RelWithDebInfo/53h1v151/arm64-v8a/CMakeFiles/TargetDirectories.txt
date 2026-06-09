@@ -1,0 +1,5 @@
+/Users/damien/Documents/Unity Games/DnDxr/.utmp/RelWithDebInfo/53h1v151/arm64-v8a/CMakeFiles/edit_cache.dir
+/Users/damien/Documents/Unity Games/DnDxr/.utmp/RelWithDebInfo/53h1v151/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/damien/Documents/Unity Games/DnDxr/.utmp/RelWithDebInfo/53h1v151/arm64-v8a/GameActivity/CMakeFiles/game.dir
+/Users/damien/Documents/Unity Games/DnDxr/.utmp/RelWithDebInfo/53h1v151/arm64-v8a/GameActivity/CMakeFiles/edit_cache.dir
+/Users/damien/Documents/Unity Games/DnDxr/.utmp/RelWithDebInfo/53h1v151/arm64-v8a/GameActivity/CMakeFiles/rebuild_cache.dir
