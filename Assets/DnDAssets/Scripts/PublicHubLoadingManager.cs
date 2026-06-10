@@ -5,13 +5,24 @@ using XRMultiplayer;
 
 public class PublicHubLoadingManager : MonoBehaviour
 {
+    [Header("Scene Settings")]
     [SerializeField] private string destinationScene = "MainPublicScene";
+
+    [Header("Loading Settings")]
+    [SerializeField] private float introDelaySeconds = 3f;
     [SerializeField] private float maxWaitTime = 20f;
 
     private IEnumerator Start()
     {
         Debug.Log("LOADING: Started");
 
+        // Allow LoadingScene to fully render
+        yield return null;
+
+        // Show loading screen / animation
+        yield return new WaitForSeconds(introDelaySeconds);
+
+        // Begin network connection
         yield return StartCoroutine(ConnectAndLoad());
     }
 
@@ -30,7 +41,9 @@ public class PublicHubLoadingManager : MonoBehaviour
         var authTask = authManager.Authenticate();
 
         while (!authTask.IsCompleted)
+        {
             yield return null;
+        }
 
         if (!authTask.Result)
         {
@@ -39,19 +52,21 @@ public class PublicHubLoadingManager : MonoBehaviour
         }
 
         Debug.Log("LOADING: Authentication successful.");
-        Debug.Log("LOADING: Calling QuickJoinLobby.");
 
+        Debug.Log("LOADING: Calling QuickJoinLobby.");
         XRINetworkGameManager.Instance.QuickJoinLobby();
 
         float timer = 0f;
 
-        while (!XRINetworkGameManager.Connected.Value && timer < maxWaitTime)
+        while (!XRINetworkGameManager.Connected.Value &&
+               timer < maxWaitTime)
         {
             timer += Time.deltaTime;
             yield return null;
         }
 
-        Debug.Log("LOADING: Connected = " + XRINetworkGameManager.Connected.Value);
+        Debug.Log("LOADING: Connected = " +
+                  XRINetworkGameManager.Connected.Value);
 
         if (!XRINetworkGameManager.Connected.Value)
         {
@@ -61,6 +76,8 @@ public class PublicHubLoadingManager : MonoBehaviour
 
         Debug.Log("LOADING: Loading " + destinationScene);
 
-        SceneManager.LoadScene(destinationScene, LoadSceneMode.Single);
+        SceneManager.LoadScene(
+            destinationScene,
+            LoadSceneMode.Single);
     }
 }
